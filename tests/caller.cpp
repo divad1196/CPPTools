@@ -22,6 +22,7 @@ void myfunc2(bool a, bool b) {
 
 int main() {
     std::cout << "test" << std::endl;
+    std::cout << Signature<std::function<decltype(myfunc)>>::param_count << std::endl;
     std::map<std::string, std::string> m;
     m["foo"] = "3";
     m["bar"] = "5";
@@ -29,7 +30,7 @@ int main() {
     m["world"] = "false";
     Caller caller(myfunc, "foo", "bar");
     std::cout << caller.call(m) << std::endl;
-    std::cout << caller._param_count << std::endl;
+    std::cout << caller.param_count << std::endl;
 
     Caller(myfunc2, "hello", "world")(m);
 
