@@ -6,6 +6,7 @@
 #include <string>
 
 #include "../src/caller.h"
+#include <nlohmann/json.hpp>
 
 int myfunc(int a, int b) {
     return a + b;
@@ -19,6 +20,13 @@ void myfunc2(bool a, bool b) {
         << (a || b) << ' '
         << std::endl;
 }
+template<>
+struct Getter<nlohmann::json> {
+    template<typename R>
+    static R get(const nlohmann::json& container, const std::string& key) {
+        return container[key].template get<R>();
+    }
+};
 
 int main() {
     std::cout << "test" << std::endl;
@@ -33,6 +41,12 @@ int main() {
     std::cout << caller.param_count << std::endl;
 
     Caller(myfunc2, "hello", "world")(m);
+
+    nlohmann::json myjson = {
+        {"foo", 9},
+        {"bar", 7}
+    };
+    std::cout << caller.call(myjson) << std::endl;
 
     return EXIT_SUCCESS;
 }

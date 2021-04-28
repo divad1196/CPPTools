@@ -26,25 +26,41 @@
 
 */
 
+
+
+template<typename T>
+struct Getter {
+    template<typename R>
+    static R get(const T& container, const std::string& key) {
+        return container.template get<R>(key);
+    }
+};
+
+template<>
+struct Getter<std::map<std::string, std::string>> {
+    template<typename R>
+    static R get(const std::map<std::string, std::string>& container, const std::string& key) {
+        return Convert::from_string<R>(container.at(key));
+    }
+};
+
 template<typename Callable, typename... Keys>
 class Caller {
 
     using signature = Signature<Callable>;
-    using Map = std::map<std::string, std::string>;
 
-    template<std::size_t... Is>
+    template<typename T, std::size_t... Is>
     typename signature::return_type
     call_impl(
-        Map params,
+        const T& params,
         std::index_sequence<Is...>
     ) {
         using types = typename signature::argument_type;
 
         types arguments = std::make_tuple(
-            (Convert::from_string<typename std::tuple_element<Is, types>::type>(
-                params.at(
-                    std::get<Is>(_keys)
-                )
+            (Getter<T>::template get<typename std::tuple_element<Is, types>::type>(
+                params,
+                std::get<Is>(_keys)
             ))...
         );
         return std::apply(_inner, arguments);
@@ -64,17 +80,18 @@ class Caller {
             _keys(std::make_tuple(keys...))
         {}
 
-
+        template<typename T>
         typename signature::return_type
-        call(Map params) {
+        call(const T& params) {
             return call_impl(
                 params,
                 signature::indexes
             );
         }
 
+        template<typename T>
         typename signature::return_type
-        operator() (Map params) {
+        operator() (const T& params) {
             return call(params);
         }
 

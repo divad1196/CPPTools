@@ -62,7 +62,8 @@ Utilitaries for std::basic_string classes and const char* (null terminated)
   value == from_string<decltype(value)>(to_string(value)) // ouput: true
   ```
 
-  
+
+
 
 ## CPPEnv
 
@@ -72,6 +73,41 @@ Deal easily with environment variables. They are wrapper for getenv, setenv and 
 * Variable name: either `std::string` or `const char*`
 * get\<T>: cast using Convert::from_string
 * set/unset: return boolean (true if succeeded)
+
+
+
+## Function
+
+Tool to handle functions
+
+```c++
+void myfunc(int a, int b) {return a + b;}
+std::cout << Signature<decltype(myfunc)>::param_count << std::endl;
+```
+
+It provides:
+
+* return_type: return type of the function
+* argument_type: tuple type with function's arguments type
+* param_count
+* indexes: std::index_sequence for function
+
+It supports std::function too
+
+
+
+## Caller
+
+```c++
+void myfunc(int a, int b) {return a + b;}
+
+nlohmann::json myjson = {
+    {"foo", 9},
+    {"bar", 7}
+};
+Caller caller(myfunc, "foo", "bar");
+std::cout << caller(myjson) << std::endl;  // output: 16
+```
 
 
 
