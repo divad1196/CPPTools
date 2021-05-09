@@ -29,6 +29,20 @@ int main(int argc, char* argv[]) {
     print_tuple(sub);
     print_tuple(sub2);
 
+    const auto& [i, j, k] = extract<1, 2, 5>(x);
+    std::cout << i << " - " << j << " + " << k << std::endl;
+    std::get<1>(x) += 3;
+    std::cout << i << " - " << j << " + " << k << std::endl;
+
+
+    auto m = extract<1, 2, 5>(x);
+    auto n = slice<1, 2, 5>(x);
+    print_tuple(m);
+    print_tuple(n);
+    std::get<1>(x) += 3;
+    print_tuple(m);
+    print_tuple(n);
+
     return EXIT_SUCCESS;
 }
 

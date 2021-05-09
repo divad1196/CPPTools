@@ -14,11 +14,20 @@
 
 ##### Maintainer remarks:
 
-* Those are a few projects of mine combined altogether for convenience. They may be splitted in separate repositories again later.
+* Those are a few projects of mine combined altogether for convenience. They **may** be splitted in separate repositories again later.
+
+* This is a bunch of utilitaries, but i am looking forward to add more complex tools
+
 * Some part are still in draft, i really take to heart to have a good api and it is hard to challenge myself to find the best one.
   I would appreciate any suggestion/opinion.
+  
 * I still have to write tests and documentation and i promise it will be done as soon as the api is fixed for any part of the project.
+
 * I want this code to be cross platform, but first implementation may always be on linux (since i work on it)
+
+  
+
+**Any comment, advice/recommendation is welcome!** I specially struggle with naming or design decisions (e.g.: should i use a constexpr function or a template structure)
 
 
 
@@ -36,6 +45,8 @@ auto sub = cond_extract<std::is_integral>(x);
 
 I personally use tuple a lot to handle types, for example those who are passed to a function.
 This currently only works with `Cond` being a struct with static boolean `value` attribute, as `std::is_integral`.
+
+In the same way, there is also `slice` which works with **references** (based on `std::tie`)
 
 
 

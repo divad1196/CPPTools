@@ -30,21 +30,18 @@ auto extract(const std::tuple<T...>& t, std::index_sequence<I...>) {
 
 template<std::size_t... I, typename... T>
 auto extract(const std::tuple<T...>& t) {
-    return std::make_tuple(std::get<I>(t)...);
+    return extract(t, std::index_sequence<I...>{});
 }
 
-/*template<std::size_t... I1>
-class sequence {
-    using seq1 = std::index_sequence<I1...>
-    template<std::size_t... I2>
-    static std::index_sequence<I1..., I2...> concat()
-};*/
+template<std::size_t... I, typename... T>
+auto slice(const std::tuple<T...>& t, std::index_sequence<I...>) {
+    return std::tie(std::get<I>(t)...);
+}
 
-
-// template<typename T, typename... Types, std::size_t... Indexes>
-// std::tuple<Types..., T> extends(const std::tuple<Types...>& t, const T& value, std::index_sequence<Indexes...>) {
-//     return std::make_tuple((std::get<Indexes>(t)...), value);
-// }
+template<std::size_t... I, typename... T>
+auto slice(const std::tuple<T...>& t) {
+    return slice(t, std::index_sequence<I...>{});
+}
 
 template<typename... T, typename... Types>
 std::tuple<Types..., T...> extends(const std::tuple<Types...>& t, const T&... values) {
