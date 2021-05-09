@@ -7,29 +7,29 @@
 // Conditional index sequence
 
 
-template<std::size_t... I>
-class extract {
-    public:
-        template<typename... T>
-        static auto from(const std::tuple<T...>& a)
-        {
-            return std::make_tuple(std::get<I>(a)...);
-        }
+// template<std::size_t... I>
+// class extract {
+//     public:
+//         template<typename... T>
+//         static auto from(const std::tuple<T...>& a)
+//         {
+//             return std::make_tuple(std::get<I>(a)...);
+//         }
 
-        template<typename... T>
-        static auto from(const T&... args)
-        {
-            return from(std::make_tuple(args...));
-        }
-};
+//         template<typename... T>
+//         static auto from(const T&... args)
+//         {
+//             return from(std::make_tuple(args...));
+//         }
+// };
 
 template<std::size_t... I, typename... T>
-auto subtuple(const std::tuple<T...>& t, std::index_sequence<I...>) {
+auto extract(const std::tuple<T...>& t, std::index_sequence<I...>) {
     return std::make_tuple(std::get<I>(t)...);
 }
 
 template<std::size_t... I, typename... T>
-auto subtuple(const std::tuple<T...>& t) {
+auto extract(const std::tuple<T...>& t) {
     return std::make_tuple(std::get<I>(t)...);
 }
 
@@ -60,8 +60,6 @@ auto cond_extends(const std::tuple<Types...>& t, const T&... values) {
         return t;
 }
 
-
-
 template<std::size_t I, std::size_t... Indexes>
 std::index_sequence<Indexes..., I> extends(std::index_sequence<Indexes...>) {
     return {};
@@ -79,11 +77,6 @@ template <std::size_t... I, std::size_t... J>
 std::index_sequence<I..., J...> concat(std::index_sequence<I...>, std::index_sequence<J...>) {
     return {};
 }
-
-// template<size_t I, typename... T>
-// struct in_range{
-//     inline static bool value = I < sizeof...(T);
-// }
 
 template<size_t I, typename... T>
 constexpr bool in_range() {
@@ -109,6 +102,11 @@ constexpr auto cond_index_seq(const std::tuple<T...>& t, std::index_sequence<Ind
 template<template<typename> typename Cond, typename... T>
 constexpr auto cond_index_seq(const std::tuple<T...>& t) {
     return cond_index_seq<Cond, 0>(t, std::index_sequence<>{});
+}
+
+template<template<typename> typename Cond, typename... T>
+auto cond_extract(const std::tuple<T...>& t) {
+    return extract(t, cond_index_seq<Cond>(t));
 }
 
 template<class TupType, std::size_t... I>

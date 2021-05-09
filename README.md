@@ -22,6 +22,23 @@
 
 
 
+## Tuple
+
+```c++
+auto x = std::make_tuple(3, 4, std::string("foo"), 5, 6, std::string("bar"));
+auto seq = cond_index_seq<std::is_integral>(x);  // Generate an index_sequence based on a condition
+auto sub = extract(x, seq);
+print_tuple(sub);  // (3, 4, 5, 6)
+
+// We can do it with one line only
+auto sub = cond_extract<std::is_integral>(x);
+```
+
+I personally use tuple a lot to handle types, for example those who are passed to a function.
+This currently only works with `Cond` being a struct with static boolean `value` attribute, as `std::is_integral`.
+
+
+
 ## String
 
 Utilitaries for std::basic_string classes and const char* (null terminated)
