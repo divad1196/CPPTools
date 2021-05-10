@@ -43,37 +43,38 @@ class OLDScanner {
 
 template<template<typename Text, typename Pattern, typename... Scannable> typename _Scanner>
 class Scanner {
+    public:
+        template<typename... E>
+        class Extras {
+            public:
+                template<typename... T>
+                class Route {
+                    public:
+                        using Callable = std::function<void(T..., E...)>;
+                        Route(const std::string& pattern, const Callable& callable): _pattern(pattern), _callable(callable)
+                        {}
 
-    template<typename... E>
-    class Extras {
-        public:
-            template<typename... T>
-            class Route {
-                public:
-                    using Callable = std::function<void(T..., E...)>;
-                    Route(const std::string& pattern, const Callable& callable): _pattern(pattern), _callable(callable)
-                    {}
+                        void operator() (const std::string& text, E... extras) {
+                            std::tuple<T...> values = scan<T...>(text, _pattern);
 
-                    void operator() (const std::string& text, E... extras) {
-                        std::tuple<T...> values = scan<T...>(text, _pattern);
+                            std::apply(
+                                [&](T... args){
+                                    _callable(args..., extras...);
+                                },
+                                values
+                            );
+                        }
 
-                        std::apply(
-                            [&](T... args){
-                                _callable(args..., extras...);
-                            },
-                            values
-                        );
-                    }
-
-                private:
-                    std::string _pattern;
-                    Callable _callable;
-            };
-    };
+                    private:
+                        std::string _pattern;
+                        Callable _callable;
+                };
+        };
 };
 
 // Without Extra Parameters
-using Extras = Scanner<OLDScanner>;
+template<typename... E>
+using Extras = Scanner<OLDScanner>::Extras<E...>;
 
 template<typename... T>
 using Route = Extras<>::Route<T...>;

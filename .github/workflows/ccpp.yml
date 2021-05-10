@@ -1,0 +1,20 @@
+name: C/C++ CI
+
+on: [push]
+
+jobs:
+  cmake:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+
+    - name: run cmake
+      run: cmake .
+
+    - name: run make
+      run: make
+
+    # - name: run tests
+    #   run: ./src/catch2_tests/hashmap_tests_run
+    #   timeout-minutes: 5
+

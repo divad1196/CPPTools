@@ -7,6 +7,7 @@
 #include "src/callback.h"
 #include "src/router.h"
 #include "src/caller.h"
+#include "src/tuple.h"
 
 
 #endif // CPPTOOLS_STRING
