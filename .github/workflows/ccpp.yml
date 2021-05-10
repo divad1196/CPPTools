@@ -14,7 +14,7 @@ jobs:
     - name: run make
       run: make
 
-    # - name: run tests
-    #   run: ./src/catch2_tests/hashmap_tests_run
-    #   timeout-minutes: 5
+    - name: run tests
+      run: ./tests/main
+      timeout-minutes: 5
 
