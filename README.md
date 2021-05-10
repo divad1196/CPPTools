@@ -1,5 +1,7 @@
 # CPPTools
 
+![example workflow](https://github.com/divad1196/CPPTools/actions/workflows/ccpp.yml/badge.svg)
+
 ## Set of CPP tools
 
 * Header only
