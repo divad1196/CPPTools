@@ -1,6 +1,10 @@
 # CPPTools
 
-![example workflow](https://github.com/divad1196/CPPTools/actions/workflows/ccpp.yml/badge.svg)
+### Tests
+
+Tests are done using [Catch2 v2.13.6](https://github.com/catchorg/Catch2/releases/tag/v2.13.6)
+
+* github workflow: ![example workflow](https://github.com/divad1196/CPPTools/actions/workflows/ccpp.yml/badge.svg)
 
 ## Set of CPP tools
 
