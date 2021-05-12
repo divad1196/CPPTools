@@ -15,6 +15,7 @@ results/
 *.exe
 *.o
 builds/*
+build/*
 doc/doxy/*
 obj
 bin/*

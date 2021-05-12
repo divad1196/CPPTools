@@ -1,10 +1,12 @@
 # CPPTools
 
+![C++ Solutions](https://img.shields.io/badge/STD-C++17-blue.svg?style=flat&logo=c%2B%2B)![GitHub last commit](https://img.shields.io/github/last-commit/divad1196/CPPTools)![example workflow](https://github.com/divad1196/CPPTools/actions/workflows/ccpp.yml/badge.svg)![GitHub](https://img.shields.io/github/license/divad1196/CPPTools)
+
 ### Tests
 
 Tests are done using [Catch2 v2.13.6](https://github.com/catchorg/Catch2/releases/tag/v2.13.6)
 
-* github workflow: ![example workflow](https://github.com/divad1196/CPPTools/actions/workflows/ccpp.yml/badge.svg)
+
 
 ## Set of CPP tools
 
