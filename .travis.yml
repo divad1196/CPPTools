@@ -1,7 +1,23 @@
 
 sudo: require
+
 language: cpp
-compiler: gcc
+
+cache: ccache
+
+dist: focal
+
+branches:
+  only:
+    - master
+
+compiler:
+  - gcc
+  - clang
+
+arch:
+  - amd64
+  - arm64
 
 before_install:
   - sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
