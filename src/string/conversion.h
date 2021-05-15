@@ -66,6 +66,29 @@ namespace Convert {
     }
 
     template<typename T>
+    void split_foreach(const std::string& str, std::function<void(T)> callback, char sep=',') {
+        auto start = str.begin();
+        auto end = std::find(start, str.end(), sep);
+        if(start != end)
+            callback(
+                from_string<T>(
+                    std::string(start, end)
+                )
+            );
+        while(end != str.end()) {
+            start = ++end;
+            end = std::find(start, str.end(), sep);
+            callback(
+                from_string<T>(
+                    std::string(start, end)
+                )
+            );
+        };
+
+        return res;
+    }
+
+    template<typename T>
     std::vector<T> split(const std::string& str, char sep=',') {
         auto start = str.begin();
         auto end = std::find(start, str.end(), sep);
