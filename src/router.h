@@ -5,6 +5,16 @@
 #include<iostream>
 #include<functional>
 
+// WORK IN PROGRESS
+/*
+    Goal: Behing able to call a function by providing a string having the correct pattern
+    Example: 
+    Route<int, int> route{ "%d and %d", [](int a, int b){
+        std::cout << a + b << std::endl;
+    }};
+    route("5 and 6");
+
+*/
 
 /*
  * Trying to add support for C++14
